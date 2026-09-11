@@ -11,12 +11,18 @@ export default function Home() {
           Administración de destinos cubiertos y seguimiento de los envíos
           contratados.
         </p>
-        <div className="flex gap-4">
+        <div className="flex flex-wrap justify-center gap-4">
           <Link
-            href="/destinos"
+            href="/ciudades"
             className="rounded-full bg-foreground text-background px-6 py-3 text-sm font-medium"
           >
-            Destinos
+            Ciudades
+          </Link>
+          <Link
+            href="/estados"
+            className="rounded-full border border-black/[.08] dark:border-white/[.145] px-6 py-3 text-sm font-medium"
+          >
+            Estados
           </Link>
           <Link
             href="/ordenes"

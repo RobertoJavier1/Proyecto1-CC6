@@ -31,10 +31,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               Entregas Rapiditas
             </Link>
             <Link
-              href="/destinos"
+              href="/ciudades"
               className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-foreground"
             >
-              Destinos
+              Ciudades
+            </Link>
+            <Link
+              href="/estados"
+              className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-foreground"
+            >
+              Estados
             </Link>
             <Link
               href="/ordenes"

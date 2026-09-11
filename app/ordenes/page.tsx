@@ -2,6 +2,7 @@ import { getEstados } from "@/lib/estados";
 import { getOrdenes } from "@/lib/ordenes";
 import { updateEstadoOrdenAction } from "./actions";
 
+// la fecha llega como timestamp de postgres, se muestra en formato local
 function formatFecha(fecha: string) {
   const d = new Date(fecha);
   if (Number.isNaN(d.getTime())) return fecha;
@@ -16,7 +17,7 @@ export default async function OrdenesPage() {
   const [ordenes, estados] = await Promise.all([getOrdenes(), getEstados()]);
 
   return (
-    <div className="w-full max-w-5xl mx-auto py-10 px-6 flex flex-col gap-8">
+    <div className="w-full max-w-6xl mx-auto py-10 px-6 flex flex-col gap-8">
       <div>
         <h1 className="text-2xl font-semibold">Órdenes de envío</h1>
         <p className="text-zinc-600 dark:text-zinc-400">
@@ -25,12 +26,12 @@ export default async function OrdenesPage() {
       </div>
 
       <div className="flex flex-col overflow-x-auto">
-        <div className="min-w-[900px] grid grid-cols-[110px_110px_1fr_1fr_110px_100px_170px_90px] gap-3 border-b border-zinc-200 dark:border-zinc-800 pb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+        <div className="min-w-[1000px] grid grid-cols-[90px_150px_1fr_1fr_150px_100px_170px_90px] gap-3 border-b border-zinc-200 dark:border-zinc-800 pb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">
           <div>Orden</div>
-          <div>Tienda</div>
+          <div>Origen</div>
           <div>Destinatario</div>
           <div>Dirección</div>
-          <div>Destino</div>
+          <div>Ruta</div>
           <div>Fecha</div>
           <div>Estado</div>
           <div></div>
@@ -39,13 +40,20 @@ export default async function OrdenesPage() {
         {ordenes.map((orden) => (
           <div
             key={orden.num_orden}
-            className="min-w-[900px] grid grid-cols-[110px_110px_1fr_1fr_110px_100px_170px_90px] gap-3 items-center border-b border-zinc-100 dark:border-zinc-900 py-2"
+            className="min-w-[1000px] grid grid-cols-[90px_150px_1fr_1fr_150px_100px_170px_90px] gap-3 items-center border-b border-zinc-100 dark:border-zinc-900 py-2"
           >
-            <div className="font-mono text-sm truncate" title={orden.num_orden}>
+            <div
+              className="font-mono text-sm truncate"
+              title={String(orden.num_orden)}
+            >
               {orden.num_orden}
             </div>
-            <div className="text-sm truncate" title={orden.tienda}>
-              {orden.tienda}
+            {/* la orden viene de un cliente individual o de una tienda, nunca ambos */}
+            <div className="text-sm truncate" title={orden.origen_nombre}>
+              <span className="text-zinc-500 text-xs uppercase mr-1">
+                {orden.origen === "cliente" ? "Cliente" : "Tienda"}
+              </span>
+              {orden.origen_nombre}
             </div>
             <div className="text-sm truncate" title={orden.destinatario}>
               {orden.destinatario}
@@ -54,10 +62,9 @@ export default async function OrdenesPage() {
               {orden.direccion_entrega}
             </div>
             <div className="text-sm">
-              {orden.nombre_ciudad}{" "}
-              <span className="text-zinc-500 font-mono text-xs">
-                ({orden.codigo_destino})
-              </span>
+              <span className="font-mono text-xs">{orden.codigo_origen}</span>
+              {" → "}
+              <span className="font-mono text-xs">{orden.codigo_destino}</span>
             </div>
             <div className="text-sm">{formatFecha(orden.fecha_creacion)}</div>
 
