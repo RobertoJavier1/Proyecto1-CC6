@@ -18,8 +18,8 @@ export default async function CiudadesPage() {
   return (
     <div className="w-full max-w-3xl mx-auto py-10 px-6 flex flex-col gap-12">
       <div>
-        <h1 className="text-2xl font-semibold">Ciudades</h1>
-        <p className="text-zinc-600 dark:text-zinc-400">
+        <h1 className="text-2xl font-semibold text-accent">Ciudades</h1>
+        <p className="text-zinc-600">
           Ciudades cubiertas por el courier.
         </p>
       </div>
@@ -28,7 +28,7 @@ export default async function CiudadesPage() {
       <section className="flex flex-col gap-4">
         <form
           action={createCiudadAction}
-          className="flex flex-wrap items-end gap-3 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4"
+          className="flex flex-wrap items-end gap-3 border border-zinc-200 rounded-lg p-4"
         >
           <div className="flex flex-col gap-1">
             <label className="text-sm font-medium" htmlFor="codigo">
@@ -39,7 +39,7 @@ export default async function CiudadesPage() {
               name="codigo"
               maxLength={5}
               required
-              className="border rounded px-2 py-1 w-24 uppercase dark:bg-black"
+              className="border rounded px-2 py-1 w-24 uppercase"
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -50,19 +50,19 @@ export default async function CiudadesPage() {
               id="nombre_ciudad"
               name="nombre_ciudad"
               required
-              className="border rounded px-2 py-1 dark:bg-black"
+              className="border rounded px-2 py-1"
             />
           </div>
           <button
             type="submit"
-            className="rounded bg-foreground text-background px-4 py-2 text-sm font-medium"
+            className="rounded bg-accent text-accent-foreground px-4 py-2 text-sm font-medium hover:opacity-90"
           >
             Agregar ciudad
           </button>
         </form>
 
         <div className="flex flex-col">
-          <div className="grid grid-cols-[80px_1fr_80px_80px] gap-3 border-b border-zinc-200 dark:border-zinc-800 pb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+          <div className="grid grid-cols-[80px_1fr_80px_80px] gap-3 border-b border-zinc-200 pb-2 text-sm font-medium text-zinc-600">
             <div>Código</div>
             <div>Ciudad</div>
             <div></div>
@@ -72,7 +72,7 @@ export default async function CiudadesPage() {
           {ciudades.map((ciudad) => (
             <div
               key={ciudad.codigo}
-              className="grid grid-cols-[80px_1fr_80px_80px] gap-3 items-center border-b border-zinc-100 dark:border-zinc-900 py-2"
+              className="grid grid-cols-[80px_1fr_80px_80px] gap-3 items-center border-b border-zinc-100 py-2"
             >
               <div className="font-mono text-sm">{ciudad.codigo}</div>
 
@@ -85,11 +85,11 @@ export default async function CiudadesPage() {
                 <input
                   name="nombre_ciudad"
                   defaultValue={ciudad.nombre_ciudad}
-                  className="border rounded px-2 py-1 text-sm dark:bg-black"
+                  className="border rounded px-2 py-1 text-sm"
                 />
                 <button
                   type="submit"
-                  className="text-xs rounded border px-2 py-1 hover:bg-black/[.04] dark:hover:bg-white/[.08]"
+                  className="text-xs rounded border border-accent text-accent px-2 py-1 hover:bg-accent/10"
                 >
                   Guardar
                 </button>
@@ -99,7 +99,7 @@ export default async function CiudadesPage() {
                 <input type="hidden" name="codigo" value={ciudad.codigo} />
                 <button
                   type="submit"
-                  className="text-xs rounded border border-red-300 text-red-600 px-2 py-1 hover:bg-red-50 dark:hover:bg-red-950"
+                  className="text-xs rounded border border-red-300 text-red-600 px-2 py-1 hover:bg-red-50"
                 >
                   Eliminar
                 </button>
@@ -118,15 +118,15 @@ export default async function CiudadesPage() {
       {/* crud de tarifas, cada fila es un par origen-destino con su precio */}
       <section className="flex flex-col gap-4">
         <div>
-          <h2 className="text-xl font-semibold">Tarifas</h2>
-          <p className="text-zinc-600 dark:text-zinc-400">
+          <h2 className="text-xl font-semibold text-accent">Tarifas</h2>
+          <p className="text-zinc-600">
             Costo de manejo y envío por cada par de ciudades.
           </p>
         </div>
 
         <form
           action={createTarifaAction}
-          className="flex flex-wrap items-end gap-3 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4"
+          className="flex flex-wrap items-end gap-3 border border-zinc-200 rounded-lg p-4"
         >
           <div className="flex flex-col gap-1">
             <label className="text-sm font-medium" htmlFor="codigo_origen">
@@ -136,7 +136,7 @@ export default async function CiudadesPage() {
               id="codigo_origen"
               name="codigo_origen"
               required
-              className="border rounded px-2 py-1 dark:bg-black"
+              className="border rounded px-2 py-1"
             >
               <option value="">Seleccione...</option>
               {ciudades.map((ciudad) => (
@@ -154,7 +154,7 @@ export default async function CiudadesPage() {
               id="codigo_destino"
               name="codigo_destino"
               required
-              className="border rounded px-2 py-1 dark:bg-black"
+              className="border rounded px-2 py-1"
             >
               <option value="">Seleccione...</option>
               {ciudades.map((ciudad) => (
@@ -175,19 +175,19 @@ export default async function CiudadesPage() {
               step="0.01"
               min="0"
               required
-              className="border rounded px-2 py-1 w-32 dark:bg-black"
+              className="border rounded px-2 py-1 w-32"
             />
           </div>
           <button
             type="submit"
-            className="rounded bg-foreground text-background px-4 py-2 text-sm font-medium"
+            className="rounded bg-accent text-accent-foreground px-4 py-2 text-sm font-medium hover:opacity-90"
           >
             Agregar tarifa
           </button>
         </form>
 
         <div className="flex flex-col">
-          <div className="grid grid-cols-[1fr_1fr_120px_80px_80px] gap-3 border-b border-zinc-200 dark:border-zinc-800 pb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+          <div className="grid grid-cols-[1fr_1fr_120px_80px_80px] gap-3 border-b border-zinc-200 pb-2 text-sm font-medium text-zinc-600">
             <div>Origen</div>
             <div>Destino</div>
             <div>Precio</div>
@@ -198,7 +198,7 @@ export default async function CiudadesPage() {
           {tarifas.map((tarifa) => (
             <div
               key={`${tarifa.codigo_origen}-${tarifa.codigo_destino}`}
-              className="grid grid-cols-[1fr_1fr_120px_80px_80px] gap-3 items-center border-b border-zinc-100 dark:border-zinc-900 py-2"
+              className="grid grid-cols-[1fr_1fr_120px_80px_80px] gap-3 items-center border-b border-zinc-100 py-2"
             >
               <div className="text-sm">
                 {tarifa.nombre_origen}{" "}
@@ -234,11 +234,11 @@ export default async function CiudadesPage() {
                   step="0.01"
                   min="0"
                   defaultValue={tarifa.precio}
-                  className="border rounded px-2 py-1 text-sm dark:bg-black"
+                  className="border rounded px-2 py-1 text-sm"
                 />
                 <button
                   type="submit"
-                  className="text-xs rounded border px-2 py-1 hover:bg-black/[.04] dark:hover:bg-white/[.08]"
+                  className="text-xs rounded border border-accent text-accent px-2 py-1 hover:bg-accent/10"
                 >
                   Guardar
                 </button>
@@ -257,7 +257,7 @@ export default async function CiudadesPage() {
                 />
                 <button
                   type="submit"
-                  className="text-xs rounded border border-red-300 text-red-600 px-2 py-1 hover:bg-red-50 dark:hover:bg-red-950"
+                  className="text-xs rounded border border-red-300 text-red-600 px-2 py-1 hover:bg-red-50"
                 >
                   Eliminar
                 </button>

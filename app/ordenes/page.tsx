@@ -19,14 +19,14 @@ export default async function OrdenesPage() {
   return (
     <div className="w-full max-w-6xl mx-auto py-10 px-6 flex flex-col gap-8">
       <div>
-        <h1 className="text-2xl font-semibold">Órdenes de envío</h1>
-        <p className="text-zinc-600 dark:text-zinc-400">
+        <h1 className="text-2xl font-semibold text-accent">Órdenes de envío</h1>
+        <p className="text-zinc-600">
           Seguimiento y actualización del estado de cada envío contratado.
         </p>
       </div>
 
       <div className="flex flex-col overflow-x-auto">
-        <div className="min-w-[1000px] grid grid-cols-[90px_150px_1fr_1fr_150px_100px_170px_90px] gap-3 border-b border-zinc-200 dark:border-zinc-800 pb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+        <div className="min-w-[1000px] grid grid-cols-[90px_150px_1fr_1fr_150px_100px_170px_90px] gap-3 border-b border-zinc-200 pb-2 text-sm font-medium text-zinc-600">
           <div>Orden</div>
           <div>Origen</div>
           <div>Destinatario</div>
@@ -40,7 +40,7 @@ export default async function OrdenesPage() {
         {ordenes.map((orden) => (
           <div
             key={orden.num_orden}
-            className="min-w-[1000px] grid grid-cols-[90px_150px_1fr_1fr_150px_100px_170px_90px] gap-3 items-center border-b border-zinc-100 dark:border-zinc-900 py-2"
+            className="min-w-[1000px] grid grid-cols-[90px_150px_1fr_1fr_150px_100px_170px_90px] gap-3 items-center border-b border-zinc-100 py-2"
           >
             <div
               className="font-mono text-sm truncate"
@@ -73,7 +73,7 @@ export default async function OrdenesPage() {
               <select
                 name="id_estado"
                 defaultValue={orden.id_estado}
-                className="border rounded px-2 py-1 text-sm dark:bg-black"
+                className="border rounded px-2 py-1 text-sm"
               >
                 {estados.map((estado) => (
                   <option key={estado.id_estado} value={estado.id_estado}>
@@ -83,7 +83,7 @@ export default async function OrdenesPage() {
               </select>
               <button
                 type="submit"
-                className="text-xs rounded border px-2 py-1 hover:bg-black/[.04] dark:hover:bg-white/[.08]"
+                className="text-xs rounded border border-accent text-accent px-2 py-1 hover:bg-accent/10"
               >
                 Guardar
               </button>

@@ -13,8 +13,8 @@ export default async function EstadosPage() {
     <div className="w-full max-w-2xl mx-auto py-10 px-6 flex flex-col gap-8">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold">Estados</h1>
-          <p className="text-zinc-600 dark:text-zinc-400">
+          <h1 className="text-2xl font-semibold text-accent">Estados</h1>
+          <p className="text-zinc-600">
             Estados por los que pasa una orden de envío.
           </p>
         </div>
@@ -22,7 +22,7 @@ export default async function EstadosPage() {
         <form action={seedEstadosAction}>
           <button
             type="submit"
-            className="text-xs rounded border px-3 py-2 hover:bg-black/[.04] dark:hover:bg-white/[.08] whitespace-nowrap"
+            className="text-xs rounded border border-accent text-accent px-3 py-2 hover:bg-accent/10 whitespace-nowrap"
           >
             Restaurar 5 estados base
           </button>
@@ -31,7 +31,7 @@ export default async function EstadosPage() {
 
       <form
         action={createEstadoAction}
-        className="flex flex-wrap items-end gap-3 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4"
+        className="flex flex-wrap items-end gap-3 border border-zinc-200 rounded-lg p-4"
       >
         <div className="flex flex-col gap-1">
           <label className="text-sm font-medium" htmlFor="id_estado">
@@ -43,7 +43,7 @@ export default async function EstadosPage() {
             type="number"
             min="1"
             required
-            className="border rounded px-2 py-1 w-20 dark:bg-black"
+            className="border rounded px-2 py-1 w-20"
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -54,19 +54,19 @@ export default async function EstadosPage() {
             id="nombre"
             name="nombre"
             required
-            className="border rounded px-2 py-1 dark:bg-black"
+            className="border rounded px-2 py-1"
           />
         </div>
         <button
           type="submit"
-          className="rounded bg-foreground text-background px-4 py-2 text-sm font-medium"
+          className="rounded bg-accent text-accent-foreground px-4 py-2 text-sm font-medium hover:opacity-90"
         >
           Agregar estado
         </button>
       </form>
 
       <div className="flex flex-col">
-        <div className="grid grid-cols-[60px_1fr_80px_80px] gap-3 border-b border-zinc-200 dark:border-zinc-800 pb-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+        <div className="grid grid-cols-[60px_1fr_80px_80px] gap-3 border-b border-zinc-200 pb-2 text-sm font-medium text-zinc-600">
           <div>Id</div>
           <div>Nombre</div>
           <div></div>
@@ -76,7 +76,7 @@ export default async function EstadosPage() {
         {estados.map((estado) => (
           <div
             key={estado.id_estado}
-            className="grid grid-cols-[60px_1fr_80px_80px] gap-3 items-center border-b border-zinc-100 dark:border-zinc-900 py-2"
+            className="grid grid-cols-[60px_1fr_80px_80px] gap-3 items-center border-b border-zinc-100 py-2"
           >
             <div className="font-mono text-sm">{estado.id_estado}</div>
 
@@ -89,11 +89,11 @@ export default async function EstadosPage() {
               <input
                 name="nombre"
                 defaultValue={estado.nombre}
-                className="border rounded px-2 py-1 text-sm dark:bg-black"
+                className="border rounded px-2 py-1 text-sm"
               />
               <button
                 type="submit"
-                className="text-xs rounded border px-2 py-1 hover:bg-black/[.04] dark:hover:bg-white/[.08]"
+                className="text-xs rounded border border-accent text-accent px-2 py-1 hover:bg-accent/10"
               >
                 Guardar
               </button>
@@ -103,7 +103,7 @@ export default async function EstadosPage() {
               <input type="hidden" name="id_estado" value={estado.id_estado} />
               <button
                 type="submit"
-                className="text-xs rounded border border-red-300 text-red-600 px-2 py-1 hover:bg-red-50 dark:hover:bg-red-950"
+                className="text-xs rounded border border-red-300 text-red-600 px-2 py-1 hover:bg-red-50"
               >
                 Eliminar
               </button>
