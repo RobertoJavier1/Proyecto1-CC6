@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Aviso from "../_components/aviso";
 import { loginAction } from "./actions";
 
@@ -54,6 +55,13 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
             Entrar
           </button>
         </form>
+
+        <p className="text-center text-sm text-zinc-600">
+          ¿Compraste en una tienda y no tienes cuenta?{" "}
+          <Link href="/rastreo" className="text-accent hover:underline">
+            Rastrea tu pedido aquí
+          </Link>
+        </p>
       </div>
     </div>
   );

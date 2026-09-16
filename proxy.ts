@@ -5,6 +5,9 @@ import { COOKIE_SESION, leerSesion } from "@/lib/sesion";
 // rutas que solo puede ver un cliente logueado, lo demas es de admin
 const RUTAS_CLIENTE = ["/mi-cuenta"];
 
+// rutas publicas: el usuario final de una tienda no tiene cuenta en el courier
+const RUTAS_PUBLICAS = ["/rastreo"];
+
 function empiezaCon(pathname: string, rutas: string[]) {
   return rutas.some((r) => pathname === r || pathname.startsWith(`${r}/`));
 }
@@ -17,6 +20,10 @@ export async function proxy(request: NextRequest) {
   if (pathname === "/login") {
     // si ya tiene sesion no tiene sentido mostrarle el login
     if (sesion) return NextResponse.redirect(new URL(inicio, request.url));
+    return NextResponse.next();
+  }
+
+  if (empiezaCon(pathname, RUTAS_PUBLICAS)) {
     return NextResponse.next();
   }
 

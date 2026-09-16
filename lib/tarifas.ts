@@ -13,6 +13,14 @@ export type TarifaConCiudades = Tarifa & {
   nombre_destino: string;
 };
 
+export async function getTarifa(codigo_origen: string, codigo_destino: string) {
+  const { rows } = await query<Tarifa>(
+    "SELECT codigo_origen, codigo_destino, precio FROM tiene_tarifa WHERE codigo_origen = $1 AND codigo_destino = $2",
+    [codigo_origen, codigo_destino],
+  );
+  return rows[0] ?? null;
+}
+
 export async function getTarifas() {
   const { rows } = await query<TarifaConCiudades>(
     `SELECT t.codigo_origen, t.codigo_destino, t.precio,
