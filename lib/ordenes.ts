@@ -83,6 +83,48 @@ export async function getSeguimientoOrden(num_orden: number) {
   return rows[0] ?? null;
 }
 
+// usada por el WebService (GET /api/status): la tienda remota solo conoce
+// su propio numero de orden (num_orden_tienda), no nuestro num_orden interno
+export async function getOrdenPorTienda(
+  id_tienda: string,
+  num_orden_tienda: string,
+) {
+  const { rows } = await query<OrdenConDetalle>(
+    `${SELECT_ORDENES} WHERE o.id_tienda = $1 AND o.num_orden_tienda = $2`,
+    [id_tienda, num_orden_tienda],
+  );
+  return rows[0] ?? null;
+}
+
+// orden que llega por el WebService (POST/GET /api/envio) contratada por una
+// tienda virtual externa ya registrada en /tiendas
+export async function createOrdenTienda(data: {
+  id_tienda: string;
+  num_orden_tienda: string;
+  id_destinatario: number;
+  direccion_entrega: string;
+  codigo_origen: string;
+  codigo_destino: string;
+  costo_envio: string;
+}) {
+  const { rows } = await query<{ num_orden: number }>(
+    `INSERT INTO ordenes
+       (direccion_entrega, id_tienda, num_orden_tienda, id_destinatario, codigo_origen, codigo_destino, costo_envio)
+     VALUES ($1, $2, $3, $4, $5, $6, $7)
+     RETURNING num_orden`,
+    [
+      data.direccion_entrega,
+      data.id_tienda,
+      data.num_orden_tienda,
+      data.id_destinatario,
+      data.codigo_origen,
+      data.codigo_destino,
+      data.costo_envio,
+    ],
+  );
+  return rows[0].num_orden;
+}
+
 // orden contratada directamente por un cliente registrado (no viene de una tienda)
 export async function createOrdenCliente(data: {
   id_cliente: number;

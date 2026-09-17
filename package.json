@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:integracion": "node --env-file=.env.local tests/seed-integracion.mjs && node --env-file=.env.local tests/api-integracion.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.45.0",
