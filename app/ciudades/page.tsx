@@ -1,5 +1,6 @@
 import { getCiudades } from "@/lib/ciudades";
 import { getTarifas } from "@/lib/tarifas";
+import Aviso from "../_components/aviso";
 import {
   createCiudadAction,
   deleteCiudadAction,
@@ -9,7 +10,10 @@ import {
   updateTarifaAction,
 } from "./actions";
 
-export default async function CiudadesPage() {
+export default async function CiudadesPage({
+  searchParams,
+}: PageProps<"/ciudades">) {
+  const { error, ok } = await searchParams;
   const [ciudades, tarifas] = await Promise.all([
     getCiudades(),
     getTarifas(),
@@ -23,6 +27,8 @@ export default async function CiudadesPage() {
           Ciudades cubiertas por el courier.
         </p>
       </div>
+
+      <Aviso error={error} ok={ok} />
 
       {/* crud de ciudades */}
       <section className="flex flex-col gap-4">

@@ -11,6 +11,7 @@ const RUTA = "/ordenes";
 
 // unica accion de esta pantalla, solo cambia el estado de una orden existente
 export async function updateEstadoOrdenAction(formData: FormData) {
+  await requireAdmin();
   const num_orden = Number(formData.get("num_orden"));
   const id_estado = Number(formData.get("id_estado"));
 

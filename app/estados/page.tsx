@@ -1,4 +1,5 @@
 import { getEstados } from "@/lib/estados";
+import Aviso from "../_components/aviso";
 import {
   createEstadoAction,
   deleteEstadoAction,
@@ -6,7 +7,10 @@ import {
   updateEstadoAction,
 } from "./actions";
 
-export default async function EstadosPage() {
+export default async function EstadosPage({
+  searchParams,
+}: PageProps<"/estados">) {
+  const { error, ok } = await searchParams;
   const estados = await getEstados();
 
   return (
@@ -28,6 +32,8 @@ export default async function EstadosPage() {
           </button>
         </form>
       </div>
+
+      <Aviso error={error} ok={ok} />
 
       <form
         action={createEstadoAction}
