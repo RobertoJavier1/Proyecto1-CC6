@@ -72,7 +72,7 @@ export async function deleteTelefonoDestinatarioAction(formData: FormData) {
   const id_destinatario = Number(formData.get("id_destinatario"));
   const id_telefono = Number(formData.get("id_telefono"));
 
-  await deleteTelefonoDestinatario(id_telefono);
+  await deleteTelefonoDestinatario(id_telefono, id_destinatario);
   revalidatePath(`/destinatarios/${id_destinatario}`);
   revalidatePath("/destinatarios");
 }

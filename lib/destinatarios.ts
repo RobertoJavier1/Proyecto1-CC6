@@ -109,8 +109,13 @@ export async function addTelefonoDestinatario(
   );
 }
 
-export async function deleteTelefonoDestinatario(id_telefono: number) {
-  await query("DELETE FROM telefono_destinatarios WHERE id_telefono = $1", [
-    id_telefono,
-  ]);
+// se pide el id_destinatario tambien para que no se borren telefonos ajenos
+export async function deleteTelefonoDestinatario(
+  id_telefono: number,
+  id_destinatario: number,
+) {
+  await query(
+    "DELETE FROM telefono_destinatarios WHERE id_telefono = $1 AND id_destinatario = $2",
+    [id_telefono, id_destinatario],
+  );
 }

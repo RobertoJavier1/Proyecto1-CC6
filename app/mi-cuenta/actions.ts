@@ -5,6 +5,7 @@ import { iniciarSesion, requireCliente } from "@/lib/auth";
 import {
   addTelefonoCliente,
   deleteTelefonoCliente,
+  getCliente,
   getClienteParaLogin,
   updateCliente,
   updateContrasenaCliente,
@@ -52,6 +53,11 @@ export async function addMiTelefonoAction(formData: FormData) {
   const telefono = texto(formData, "telefono");
 
   if (!REGEX_TELEFONO.test(telefono)) fallar(RUTA, "El teléfono no es válido");
+
+  // un admin pudo haber borrado la cuenta con la sesion todavia abierta
+  if (!(await getCliente(sesion.id))) {
+    fallar(RUTA, "Su cuenta ya no existe, vuelva a iniciar sesión");
+  }
 
   await addTelefonoCliente(sesion.id, telefono);
   revalidatePath(RUTA);

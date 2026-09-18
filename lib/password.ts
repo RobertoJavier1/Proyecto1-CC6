@@ -1,4 +1,4 @@
-import { randomBytes, scrypt, timingSafeEqual } from "crypto";
+import { createHash, randomBytes, scrypt, timingSafeEqual } from "crypto";
 import { promisify } from "util";
 
 const scryptAsync = promisify(scrypt) as (
@@ -16,10 +16,12 @@ export async function hashPassword(password: string) {
 
 export async function verifyPassword(password: string, guardada: string) {
   if (!guardada.startsWith("scrypt$")) {
-    // registros metidos a mano en la bd con la contraseña en texto plano
-    const a = Buffer.from(password);
-    const b = Buffer.from(guardada);
-    return a.length === b.length && timingSafeEqual(a, b);
+    // registros metidos a mano en la bd con la contraseña en texto plano.
+    // se comparan los sha256 para que ambos buffers midan lo mismo y el
+    // tiempo de la comparacion no delate el largo de la contraseña
+    const a = createHash("sha256").update(password).digest();
+    const b = createHash("sha256").update(guardada).digest();
+    return timingSafeEqual(a, b);
   }
 
   const [, salt, hashHex] = guardada.split("$");
